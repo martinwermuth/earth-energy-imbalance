@@ -693,7 +693,7 @@ function render() {
       scales: {
         x: { grid: { color: "rgba(20,34,51,.055)" }, ticks: (built.xmode === "monthly"
               ? { color: "#8A94A6", maxRotation: 0, autoSkip: false, font: { size: 12.5 },
-                  callback: function (v, i) { if (MO[i] === 1 && (parseInt(M[i].slice(0, 4), 10) % 2) === 1) return M[i].slice(0, 4); return null; } }
+                  callback: function (v, i) { if (MO[i] !== 1) return null; var yr = parseInt(M[i].slice(0, 4), 10); if (window.innerWidth < 560) { return (yr % 5 === 0) ? String(yr) : null; } return (yr % 2 === 1) ? String(yr) : null; } }
               : { color: "#8A94A6", maxRotation: 0, autoSkip: true, maxTicksLimit: 9, font: { size: 12.5 } }) },
         y: { suggestedMin: (built.yMin != null ? built.yMin : undefined), grid: { color: "rgba(20,34,51,.055)" }, ticks: { color: "#8A94A6", font: { size: 12.5 }, callback: function (v) { return Number(v).toLocaleString(T().locale, { maximumFractionDigits: 2 }); } },
              title: { display: true, text: built.yTitle, color: "#8A94A6", font: { size: 12.5 } } }
