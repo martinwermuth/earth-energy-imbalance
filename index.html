@@ -261,7 +261,7 @@ en: {
   optSmooth: { raw: "Monthly values (raw)", "12": "12-month mean", "36": "36-month mean", "48": "48-month mean", jahr: "Annual means" },
   optBase: { leon: "2000/03–2004/02 (first 48 months)", hansen: "2000/03–2010/02 (first 120 months)", p01: "2001–2020" },
   optUnit: { wm2: "W/m²", bombs: "Hiroshima bombs / second", zj: "Zettajoules / year" },
-  lblMark: "Event markers (El Niño, IMO 2020, Hunga Tonga)", lblGhost: "Show monthly values as thin line",
+  lblMark: "Event markers (El Niño, IMO 2020)", lblGhost: "Show monthly values as thin line",
   bCsv: "Download data as CSV", bCite: "Copy citation", copied: "Copied ✓",
   regionslink: "Regional differences (North Atlantic, North Pacific, IMO-2020) →",
   copyChart: "Copy chart", copiedImg: "Copied ✓", dlImg: "Downloaded ✓",
@@ -315,7 +315,7 @@ de: {
   optSmooth: { raw: "Monatswerte (roh)", "12": "12-Monats-Mittel", "36": "36-Monats-Mittel", "48": "48-Monats-Mittel", jahr: "Jahresmittel" },
   optBase: { leon: "2000/03–2004/02 (erste 48 Monate)", hansen: "2000/03–2010/02 (erste 120 Monate)", p01: "2001–2020" },
   optUnit: { wm2: "W/m²", bombs: "Hiroshima-Bomben / Sekunde", zj: "Zettajoule / Jahr" },
-  lblMark: "Ereignis-Marker (El Niño, IMO 2020, Hunga Tonga)", lblGhost: "Monatswerte als dünne Linie einblenden",
+  lblMark: "Ereignis-Marker (El Niño, IMO 2020)", lblGhost: "Monatswerte als dünne Linie einblenden",
   bCsv: "Daten als CSV herunterladen", bCite: "Zitierzeile kopieren", copied: "Kopiert ✓",
   regionslink: "Regionale Unterschiede (Nordatlantik, Nordpazifik, IMO-2020) →",
   copyChart: "Grafik kopieren", copiedImg: "Kopiert ✓", dlImg: "Heruntergeladen ✓",
@@ -416,7 +416,7 @@ var EV_BANDS = [
   ["2015-05", "2016-04", "El Niño"], ["2023-06", "2024-04", "El Niño"],
   ["2025-10", "2026-04", "El Niño 2026"]
 ];
-var EV_LINES = [["2020-01", "IMO 2020"], ["2022-01", "Hunga Tonga"]];
+var EV_LINES = [["2020-01", "IMO 2020"]];
 
 var markerPlugin = {
   id: "eventMarkers",
@@ -526,7 +526,7 @@ var gapPlugin = {
     var tyA = y.getPixelForValue(minMax(asr, iA, sA).hi) - 10;
     if (tyA < y.top + 44) tyA = y.top + 44;
     ctx.fillStyle = "#1E88C7";
-    ctx.fillText(st.gapAnno.asrTag, x.getPixelForValue(iA), tyA);
+    if (window.innerWidth >= 560) ctx.fillText(st.gapAnno.asrTag, x.getPixelForValue(iA), tyA);
 
     var sO = idxSpan(ctx.measureText(st.gapAnno.olrTag).width);
     var fr = [0.30, 0.45, 0.60, 0.72], placed = false, iO = 0, tyO = 0;
@@ -537,7 +537,7 @@ var gapPlugin = {
     }
     if (!placed) { iO = iF + Math.floor((iL - iF) * 0.30); tyO = y.getPixelForValue(minMax(olr, iO, sO).hi) - 8; }
     ctx.fillStyle = "#D63A32";
-    ctx.fillText(st.gapAnno.olrTag, x.getPixelForValue(iO), tyO);
+    if (window.innerWidth >= 560) ctx.fillText(st.gapAnno.olrTag, x.getPixelForValue(iO), tyO);
 
     /* Doppelpfeil-Zeichner */
     function arrowV(ax, yTop, yBot, head) {
@@ -579,7 +579,8 @@ var gapPlugin = {
     ctx.font = "600 11.5px system-ui, sans-serif"; ctx.textAlign = "left";
     var sS = idxSpan(ctx.measureText(startTxt).width * 2);
     ctx.fillStyle = "#8A5200";
-    ctx.fillText(startTxt, gx0 + 2, y.getPixelForValue(minMax(asr, iF + sS, sS).hi) - 8);
+    var tyStart = (yA0 + yO0) / 2 + 4;
+    ctx.fillText(startTxt, gx0 + 2, tyStart);
     ctx.restore();
   }
 };
@@ -674,7 +675,7 @@ function render() {
       responsive: true, maintainAspectRatio: false, animation: false,
       interaction: { mode: "nearest", intersect: false },
       plugins: {
-        legend: { display: built.datasets.length > 1 && !built.hideLegend, labels: { color: "#546074", font: { size: 13 }, boxWidth: 16, boxHeight: 2 } },
+        legend: { display: built.datasets.length > 1 && (!built.hideLegend || window.innerWidth < 560), labels: { color: "#546074", font: { size: 13 }, boxWidth: 16, boxHeight: 2 } },
         tooltip: {
           backgroundColor: "#FFFFFF", borderColor: "#DCE3EE", borderWidth: 1,
           titleColor: "#152233", bodyColor: "#3A4658", padding: 10, cornerRadius: 8,
