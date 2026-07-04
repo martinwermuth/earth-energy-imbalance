@@ -579,7 +579,11 @@ var gapPlugin = {
     ctx.font = "600 11.5px system-ui, sans-serif"; ctx.textAlign = "left";
     var sS = idxSpan(ctx.measureText(startTxt).width * 2);
     ctx.fillStyle = "#8A5200";
-    var tyStart = (yA0 + yO0) / 2 + 4;
+    var tyStart = (yA0 + yO0) / 2 + 2;
+    ctx.save();
+    ctx.lineWidth = 3.5; ctx.strokeStyle = "rgba(255,255,255,0.92)"; ctx.lineJoin = "round";
+    ctx.strokeText(startTxt, gx0 + 2, tyStart);
+    ctx.restore();
     ctx.fillText(startTxt, gx0 + 2, tyStart);
     ctx.restore();
   }
