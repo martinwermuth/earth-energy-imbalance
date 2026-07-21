@@ -229,6 +229,7 @@ var TO_BOMBS = A_E / HIRO;
 var TO_ZJY = A_E * 3.15576e7 / 1e21;
 
 var M = EBAF.months, N = M.length;
+var DAYS = M.map(function (s) { return new Date(+s.slice(0, 4), +s.slice(5, 7), 0).getDate(); });
 var MO = []; for (var i0 = 0; i0 < N; i0++) MO.push(parseInt(M[i0].slice(5, 7), 10));
 
 function derive() {
@@ -254,7 +255,7 @@ en: {
   locale: "en-US",
   q1: "How large is the imbalance?", q2: "Is Earth absorbing more sunlight?", q3: "Is more heat escaping to space?",
   q4: "The widening gap", q5: "Is Earth getting darker?", q6: "How much is already stored?", q7: "Is this still normal?",
-  sName: { net: "Energy imbalance (EEI)", asr: "Absorbed solar radiation", olr: "Heat radiated to space (OLR)", alb: "Albedo", sol: "Incoming solar radiation" },
+  sName: { net: "Energy imbalance (EEI)", asr: "Absorbed sunlight (ASR)", olr: "Heat radiated to space (OLR)", alb: "Albedo", sol: "Incoming solar radiation" },
   sumExpert: "For experts: custom analysis", sumExplain: "What does it all mean?",
   lblSeries: "Quantity", lblRef: "Reference", lblSmooth: "Display", lblBase: "Baseline (for anomalies)", lblUnit: "Unit (energy imbalance only)",
   optRef: { abs: "Absolute values", anom: "Anomaly (deseasonalized)" },
@@ -279,8 +280,8 @@ en: {
   subAnnual: function (b, anom) { return "Calendar-year means (complete years only)" + (anom ? " · baseline " + b : ""); },
   big: { t: "The widening gap: absorbed sunlight vs. heat radiated to space",
          s: "Absolute values, 48-month means · the orange area between the lines is the energy imbalance · chart style after Leon Simons",
-         olr: "Heat radiated to space (48-month mean)", asr: "Absorbed solar energy (48-month mean)",
-         asrTag: "Absorbed sunlight", olrTag: "Heat radiated to space", gapWord: "Imbalance" },
+         olr: "Heat radiated to space (OLR, 48-month mean)", asr: "Absorbed sunlight (ASR, 48-month mean)",
+         asrTag: "Absorbed sunlight (ASR)", olrTag: "Heat radiated to space (OLR)", gapWord: "Imbalance" },
   cum: { t: "Accumulated energy since March 2000", s: "Monthly balance × Earth's surface, summed up · more than 90 % goes into the oceans · the yearly wiggle reflects Earth's slightly elliptical orbit",
          label: "Accumulated energy (ZJ)", y: "Zettajoules (10²¹ J)" },
   paleo: { t: "Is this still normal? Today vs. 800,000 years of Earth's history",
@@ -306,9 +307,9 @@ de: {
   badge: function (b) { return "Offizielle NASA-Daten · EBAF-TOA Ed4.2.1 · bis " + b; },
   months: ["", "Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
   locale: "de-DE",
-  q1: "Wie groß ist das Ungleichgewicht?", q2: "Nimmt die Erde mehr Sonne auf?", q3: "Entweicht mehr Wärme ins All?",
+  q1: "Wie groß ist das Ungleichgewicht?", q2: "Nimmt die Erde mehr Sonnenstrahlung auf?", q3: "Entweicht mehr Wärme ins All?",
   q4: "Die Schere öffnet sich", q5: "Wird die Erde dunkler?", q6: "Wie viel ist schon gespeichert?", q7: "Ist das noch normal?",
-  sName: { net: "Energiebilanz (EEI)", asr: "Absorbierte Sonnenstrahlung", olr: "Ins All abgestrahlte Wärme (OLR)", alb: "Albedo", sol: "Einfallende Sonnenstrahlung" },
+  sName: { net: "Energiebilanz (EEI)", asr: "Aufgenommene Sonnenstrahlung (ASR)", olr: "Ins All abgestrahlte Wärme (OLR)", alb: "Albedo", sol: "Einfallende Sonnenstrahlung" },
   sumExpert: "Für Fachleute: eigene Auswertung", sumExplain: "Was bedeutet das alles?",
   lblSeries: "Größe", lblRef: "Bezug", lblSmooth: "Darstellung", lblBase: "Basisperiode (für Anomalien)", lblUnit: "Einheit (nur Energiebilanz)",
   optRef: { abs: "Absolutwerte", anom: "Anomalie (entsaisonalisiert)" },
@@ -331,10 +332,10 @@ de: {
   subStd: "NASA CERES EBAF-TOA Ed4.2.1, global",
   subAnomPrefix: function (b) { return "Entsaisonalisiert · Basis " + b + " · "; },
   subAnnual: function (b, anom) { return "Kalenderjahres-Mittel (nur vollständige Jahre)" + (anom ? " · Basis " + b : ""); },
-  big: { t: "Die Schere: aufgenommene Sonne gegen ins All abgestrahlte Wärme",
+  big: { t: "Die Schere: aufgenommene Sonnenstrahlung gegen ins All abgestrahlte Wärme",
          s: "Absolutwerte als 48-Monats-Mittel · die orange Fläche dazwischen ist das Energie-Ungleichgewicht · Darstellung nach Leon Simons",
-         olr: "Ins All abgestrahlte Wärme (48-Monats-Mittel)", asr: "Aufgenommene Sonnenenergie (48-Monats-Mittel)",
-         asrTag: "Aufgenommene Sonne", olrTag: "Ins All abgestrahlte Wärme", gapWord: "Ungleichgewicht" },
+         olr: "Ins All abgestrahlte Wärme (OLR, 48-Monats-Mittel)", asr: "Aufgenommene Sonnenstrahlung (ASR, 48-Monats-Mittel)",
+         asrTag: "Aufgenommene Sonnenstrahlung (ASR)", olrTag: "Ins All abgestrahlte Wärme (OLR)", gapWord: "Ungleichgewicht" },
   cum: { t: "Aufsummierte Energie seit März 2000", s: "Monatsbilanz mal Erdoberfläche, aufaddiert · über 90 % davon erwärmen die Ozeane · das jährliche Auf und Ab spiegelt die leicht ovale Erdbahn",
          label: "Kumulierte Energie (ZJ)", y: "Zettajoule (10²¹ J)" },
   paleo: { t: "Ist das noch normal? Heute im Vergleich zu 800.000 Jahren Erdgeschichte",
@@ -380,23 +381,23 @@ function climOf(vals, bk) {
 }
 function anomaly(vals, bk) { var cl = climOf(vals, bk), out = []; for (var i = 0; i < N; i++) out.push(vals[i] - cl[MO[i]]); return out; }
 function runmean(a, w) {
-  var out = [], s = 0;
+  var out = [], s = 0, ds = 0;
   for (var i = 0; i < a.length; i++) {
-    s += a[i];
-    if (i >= w) s -= a[i - w];
-    out.push(i >= w - 1 ? s / w : null);
+    s += a[i] * DAYS[i]; ds += DAYS[i];
+    if (i >= w) { s -= a[i - w] * DAYS[i - w]; ds -= DAYS[i - w]; }
+    out.push(i >= w - 1 ? s / ds : null);
   }
   return out;
 }
-function trailing(a, w) { var end = a.length - 1, s = 0, c = 0; for (var i = end - w + 1; i <= end; i++) { if (i >= 0 && a[i] != null) { s += a[i]; c++; } } return c ? s / c : null; }
-function firstMean(a, w) { var s = 0, c = 0; for (var i = 0; i < w && i < a.length; i++) { if (a[i] != null) { s += a[i]; c++; } } return c ? s / c : null; }
+function trailing(a, w) { var end = a.length - 1, s = 0, d = 0; for (var i = end - w + 1; i <= end; i++) { if (i >= 0 && a[i] != null) { s += a[i] * DAYS[i]; d += DAYS[i]; } } return d ? s / d : null; }
+function firstMean(a, w) { var s = 0, d = 0; for (var i = 0; i < w && i < a.length; i++) { if (a[i] != null) { s += a[i] * DAYS[i]; d += DAYS[i]; } } return d ? s / d : null; }
 function annualOf(vals) {
   var byY = {}, i;
-  for (i = 0; i < N; i++) { var y = M[i].slice(0, 4); if (!byY[y]) byY[y] = []; byY[y].push(vals[i]); }
+  for (i = 0; i < N; i++) { var y = M[i].slice(0, 4); if (!byY[y]) byY[y] = { v: [], d: [] }; byY[y].v.push(vals[i]); byY[y].d.push(DAYS[i]); }
   var years = [], means = [];
   for (var yy = 2000; yy <= 2100; yy++) {
     var k = String(yy);
-    if (byY[k] && byY[k].length === 12) { var s = 0; for (i = 0; i < 12; i++) s += byY[k][i]; years.push(k); means.push(s / 12); }
+    if (byY[k] && byY[k].v.length === 12) { var s = 0, dd = 0; for (i = 0; i < 12; i++) { s += byY[k].v[i] * byY[k].d[i]; dd += byY[k].d[i]; } years.push(k); means.push(s / dd); }
   }
   return { years: years, means: means };
 }
@@ -526,7 +527,7 @@ var gapPlugin = {
     var tyA = y.getPixelForValue(minMax(asr, iA, sA).hi) - 10;
     if (tyA < y.top + 44) tyA = y.top + 44;
     ctx.fillStyle = "#1E88C7";
-    if (window.innerWidth >= 560) ctx.fillText(st.gapAnno.asrTag, x.getPixelForValue(iA), tyA);
+    if (window.innerWidth >= 560) { ctx.save(); ctx.lineWidth = 3.5; ctx.strokeStyle = "rgba(255,255,255,0.92)"; ctx.lineJoin = "round"; ctx.strokeText(st.gapAnno.asrTag, x.getPixelForValue(iA), tyA); ctx.restore(); ctx.fillText(st.gapAnno.asrTag, x.getPixelForValue(iA), tyA); }
 
     var sO = idxSpan(ctx.measureText(st.gapAnno.olrTag).width);
     var fr = [0.30, 0.45, 0.60, 0.72], placed = false, iO = 0, tyO = 0;
@@ -537,7 +538,7 @@ var gapPlugin = {
     }
     if (!placed) { iO = iF + Math.floor((iL - iF) * 0.30); tyO = y.getPixelForValue(minMax(olr, iO, sO).hi) - 8; }
     ctx.fillStyle = "#D63A32";
-    if (window.innerWidth >= 560) ctx.fillText(st.gapAnno.olrTag, x.getPixelForValue(iO), tyO);
+    if (window.innerWidth >= 560) { ctx.save(); ctx.lineWidth = 3.5; ctx.strokeStyle = "rgba(255,255,255,0.92)"; ctx.lineJoin = "round"; ctx.strokeText(st.gapAnno.olrTag, x.getPixelForValue(iO), tyO); ctx.restore(); ctx.fillText(st.gapAnno.olrTag, x.getPixelForValue(iO), tyO); }
 
     /* Doppelpfeil-Zeichner */
     function arrowV(ax, yTop, yBot, head) {
